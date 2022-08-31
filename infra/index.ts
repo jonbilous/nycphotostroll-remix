@@ -1,6 +1,5 @@
 import * as aws from "@pulumi/aws";
 import * as pulumi from "@pulumi/pulumi";
-import { v4 } from "uuid";
 
 const stack = pulumi.getStack();
 const project = pulumi.getProject();
@@ -10,7 +9,7 @@ const name = (name: string) => {
 };
 
 const db = (id: string, engine: aws.rds.EngineType) => {
-  const password = process.env.DB_PASSWORD ?? v4();
+  const password = process.env.DB_PASSWORD;
 
   const cluster = new aws.rds.Cluster(name("db-cluster"), {
     engine,
