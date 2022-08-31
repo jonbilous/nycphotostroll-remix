@@ -6,7 +6,7 @@
     "dev": "remix dev",
     "prisma": "npx prisma generate && npx prisma migrate deploy",
     "pulumi": "bash pulumi.sh",
-    "vercel": "npm run prisma && npm run pulumi && npm run build",
+    "vercel": "npm run pulumi && npm run prisma && npm run build",
     "db:migrate": "npx prisma migrate dev && npx prisma generate",
     "db:reset": "npx prisma migrate dev && npx prisma generate && npx prisma migrate reset"
   },
