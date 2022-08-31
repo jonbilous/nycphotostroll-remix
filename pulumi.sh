@@ -1,7 +1,9 @@
-if [[ $VERCEL_ENV == "production" ]]; 
-then export PULUMI_ENV="prod" 
-else export PULUMI_ENV="dev" 
-fi
+# if [[ $VERCEL_ENV == "production" ]]; 
+# then export PULUMI_ENV="prod" 
+# else export PULUMI_ENV="dev" 
+# fi
+
+export PULUMI_ENV="prod" 
 
 echo $PULUMI_ENV
 

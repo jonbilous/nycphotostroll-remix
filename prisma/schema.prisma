@@ -20,37 +20,59 @@ enum ImageStatus {
   published
 }
 
-model Event {
-  id       String    @id @unique @default(uuid()) @db.Uuid
-  uid      String    @unique
-  date     DateTime
-  location String
-  type     EventType
-  images   Image[]
-}
-
-model Image {
-  id        String      @id @unique @default(uuid()) @db.Uuid
-  uid       String      @unique
-  status    ImageStatus
-  event     Event       @relation(fields: [eventId], references: [id])
-  eventId   String      @db.Uuid
-  createdAt DateTime    @default(now())
-  user      User        @relation(fields: [userId], references: [id])
-  userId    String      @db.Uuid
-}
-
 enum Role {
   admin
   normal
 }
 
+enum ContributionType {
+  poster
+  route
+}
+
+enum ImageFeatureType {
+  groupPhoto
+  favorite
+}
+
+model Contribution {
+  id      String           @id @unique @default(uuid()) @db.Uuid
+  type    ContributionType
+  user    User             @relation(fields: [userId], references: [id])
+  userId  String           @db.Uuid
+  event   Event            @relation(fields: [eventId], references: [id])
+  eventId String           @db.Uuid
+}
+
+model Event {
+  id            String         @id @unique @default(uuid()) @db.Uuid
+  uid           String         @unique
+  date          DateTime
+  location      String
+  type          EventType
+  images        Image[]
+  contributions Contribution[]
+}
+
+model Image {
+  id          String            @id @unique @default(uuid()) @db.Uuid
+  uid         String            @unique
+  status      ImageStatus
+  event       Event             @relation(fields: [eventId], references: [id])
+  eventId     String            @db.Uuid
+  createdAt   DateTime          @default(now())
+  user        User              @relation(fields: [userId], references: [id])
+  userId      String            @db.Uuid
+  featureType ImageFeatureType?
+}
+
 model User {
-  name      String?
-  uid       String?  @unique
-  id        String   @id @unique @default(uuid()) @db.Uuid
-  auth0id   String   @unique()
-  role      Role     @default(normal)
-  createdAt DateTime @default(now())
-  images    Image[]
+  name         String?
+  uid          String?        @unique
+  id           String         @id @unique @default(uuid()) @db.Uuid
+  auth0id      String         @unique()
+  role         Role           @default(normal)
+  createdAt    DateTime       @default(now())
+  images       Image[]
+  contribution Contribution[]
 }
