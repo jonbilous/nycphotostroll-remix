@@ -295,14 +295,3 @@ h3 {
 	}
 }
 
-p.next {
-    margin: 0;
-    text-transform: uppercase;
-    font-size: 1.5em;
-}
-p.next a {
-    color: var(--text-color);
-}
-img.featured {
-    filter: grayscale(100%);
-}
