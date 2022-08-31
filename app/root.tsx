@@ -1,8 +1,4 @@
-import type {
-  LinksFunction,
-  LoaderFunction,
-  MetaFunction,
-} from "@remix-run/node";
+import type { LinksFunction, MetaFunction } from "@remix-run/node";
 import {
   Links,
   LiveReload,
@@ -17,15 +13,11 @@ import Navigation from "./components/Navigation";
 import GlobalCss from "./styles/global.css";
 import { useQuery, QueryClientProvider, QueryClient } from "react-query";
 
-const queryClient = new QueryClient({ defaultOptions: {} });
-
-export const loader: LoaderFunction = async () => {
-  const viewCount = await fetch(
-    "https://count.baer.works/hit?p=photostroll.nyc"
-  ).then((res) => res.text());
-
-  return { viewCount };
-};
+const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: { refetchOnMount: false, refetchOnWindowFocus: false },
+  },
+});
 
 // https://remix.run/api/conventions#links
 export let links: LinksFunction = () => {
